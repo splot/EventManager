@@ -1,4 +1,4 @@
-EventManager
+Splot Event Manager
 ============
 
 Event Manager.
