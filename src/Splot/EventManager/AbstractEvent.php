@@ -30,6 +30,13 @@ abstract class AbstractEvent
     private $_propagationStopped = false;
 
     /**
+     * Has default behavior been prevented?
+     * 
+     * @var bool
+     */
+    private $_defaultPrevented = false;
+
+    /**
      * Sets the event manager.
      * 
      * @param EventManager $eventManager
@@ -55,12 +62,28 @@ abstract class AbstractEvent
     }
 
     /**
+     * Prevents the default behavior of this event.
+     */
+    public function preventDefault() {
+        $this->_defaultPrevented = true;
+    }
+
+    /**
      * Checks if propagation of this event has been stopped.
      * 
      * @return bool
      */
     public function isPropagationStopped() {
         return $this->_propagationStopped;
+    }
+
+    /**
+     * Checks if the default behavior of this event has been prevented.
+     * 
+     * @return bool
+     */
+    public function isDefaultPrevented() {
+        return $this->_defaultPrevented;
     }
 
     /**

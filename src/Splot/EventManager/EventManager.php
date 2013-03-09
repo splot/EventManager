@@ -56,13 +56,28 @@ class EventManager
             $this->_listeners[$name] = array();
         }
 
-        $this->_logger->info('Triggered event "'. $name .'" with '. count($this->_listeners[$name]) .' listeners.');
+        $this->_logger->info('Triggered event "{name}" with {count} listeners.', array(
+            'name' => $name,
+            'count' => count($this->_listeners[$name])
+        ));
 
         foreach($this->_listeners[$name] as $i => $listener) {
-            call_user_func_array($listener['callable'], array($event));
+            $preventDefault = call_user_func_array($listener['callable'], array($event));
+            if ($preventDefault === false) {
+                $event->preventDefault();
+                $this->_logger->info('Default prevented of event "{name}" at listener #{i} - "{listener}".', array(
+                    'name' => $name,
+                    'i' => $i,
+                    'listener' => Debugger::callableToString($listener['callable'])
+                ));
+            }
 
             if ($event->isPropagationStopped()) {
-                $this->_logger->info('Stopped propagation of event "'. $name .'" at listener '. $i .'.');
+                $this->_logger->info('Stopped propagation of event "{name}" at listener #{i} - "{listener}".', array(
+                    'name' => $name,
+                    'i' => $i,
+                    'listener' => Debugger::callableToString($listener['callable'])
+                ));
                 break;
             }
         }
@@ -79,7 +94,7 @@ class EventManager
      */
     public function subscribe($name, $listener, $priority = 0) {
         if (!is_callable($listener)) {
-            throw new \InvalidArgumentException('Listener has to be a callable, "'. $listener .'" given."');
+            throw new \InvalidArgumentException('Listener has to be a callable, "'. Debugger::getType($listener) .'" given."');
         }
 
         if (!isset($this->_listeners[$name])) {
