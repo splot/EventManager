@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "splot/foundation": "dev-master",
+        "michaldudek/foundation": "dev-master",
         "splot/log": "dev-master"
     },
     "autoload": {

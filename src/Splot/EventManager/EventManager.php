@@ -10,8 +10,8 @@
  */
 namespace Splot\EventManager;
 
-use Splot\Foundation\Debug\Debugger;
-use Splot\Foundation\Utils\ArrayUtils;
+use MD\Foundation\Debug\Debugger;
+use MD\Foundation\Utils\ArrayUtils;
 
 use Splot\Log\LogContainer;
 use Splot\Log\Logger;
