@@ -37,9 +37,10 @@ class EventManager
 
     /**
      * Constructor.
+     * 
+     * @param LoggerInterface $logger [optional] Logger into which info about called events will be sent.
      */
-    public function __construct($name = null, LoggerInterface $logger = null) {
-        $name = @$name ?: 'Event Manager';
+    public function __construct(LoggerInterface $logger = null) {
         $this->_logger = $logger ? $logger : new NullLogger();
     }
 
