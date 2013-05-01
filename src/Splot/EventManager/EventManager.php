@@ -10,11 +10,11 @@
  */
 namespace Splot\EventManager;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 use MD\Foundation\Debug\Debugger;
 use MD\Foundation\Utils\ArrayUtils;
-
-use Splot\Log\LogContainer;
-use Splot\Log\Logger;
 
 use Splot\EventManager\AbstractEvent;
 
@@ -38,9 +38,9 @@ class EventManager
     /**
      * Constructor.
      */
-    public function __construct($name = null) {
+    public function __construct($name = null, LoggerInterface $logger = null) {
         $name = @$name ?: 'Event Manager';
-        $this->_logger = LogContainer::create($name);
+        $this->_logger = $logger ? $logger : new NullLogger();
     }
 
     /**

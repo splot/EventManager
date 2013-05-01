@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "michaldudek/foundation": "dev-master",
-        "splot/log": "dev-master"
+        "psr/log": "dev-master",
+        "michaldudek/foundation": "dev-master"
     },
     "autoload": {
         "psr-0": { "Splot\\EventManager": "src/" }
