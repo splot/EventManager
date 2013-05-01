@@ -48,6 +48,7 @@ class EventManager
      * Triggers an event and all its listeners.
      * 
      * @param AbstractEvent $event Event to be triggered.
+     * @return bool Was default behavior prevented?
      */
     public function trigger(AbstractEvent $event) {
         $name = call_user_func(array(Debugger::getClass($event), 'getName'));
@@ -82,6 +83,8 @@ class EventManager
                 break;
             }
         }
+
+        return $event->isDefaultPrevented();
     }
 
     /**
