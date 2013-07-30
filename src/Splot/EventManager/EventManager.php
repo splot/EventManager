@@ -14,6 +14,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 use MD\Foundation\Debug\Debugger;
+use MD\Foundation\Exceptions\InvalidArgumentException;
+use MD\Foundation\Exceptions\NotImplementedException;
 use MD\Foundation\Utils\ArrayUtils;
 
 use Splot\EventManager\AbstractEvent;
@@ -47,8 +49,17 @@ class EventManager
     /**
      * Triggers an event and all its listeners.
      * 
+     * It returns boolean value based on prevented default flag from the event. If default was prevented
+     * then (bool) false will be returned, otherwise (bool) true. This is so that you can do something like this:
+     * 
+     *     if (!$eventManager->trigger(Event::getName())) {
+     *         echo 'breaking default behavior';
+     *         return;
+     *     }
+     *     echo 'continue with default behavior'; 
+     * 
      * @param AbstractEvent $event Event to be triggered.
-     * @return bool Was default behavior prevented?
+     * @return bool Should default execution continue?
      */
     public function trigger(AbstractEvent $event) {
         $name = call_user_func(array(Debugger::getClass($event), 'getName'));
@@ -65,12 +76,20 @@ class EventManager
 
         foreach($this->_listeners[$name] as $i => $listener) {
             $preventDefault = call_user_func_array($listener['callable'], array($event));
+
+            // for compatibility with older versions of MDFoundation
+            try {
+                $listenerString = Debugger::callableToString($listener['callable']);
+            } catch (NotImplementedException $e) {
+                $listenerString = 'TBD';
+            }
+
             if ($preventDefault === false) {
                 $event->preventDefault();
                 $this->_logger->info('Default prevented of event "{name}" at listener #{i} - "{listener}".', array(
                     'name' => $name,
                     'i' => $i,
-                    'listener' => Debugger::callableToString($listener['callable'])
+                    'listener' => $listenerString
                 ));
             }
 
@@ -78,13 +97,13 @@ class EventManager
                 $this->_logger->info('Stopped propagation of event "{name}" at listener #{i} - "{listener}".', array(
                     'name' => $name,
                     'i' => $i,
-                    'listener' => Debugger::callableToString($listener['callable'])
+                    'listener' => $listenerString
                 ));
                 break;
             }
         }
 
-        return $event->isDefaultPrevented();
+        return !$event->isDefaultPrevented();
     }
 
     /**
@@ -94,11 +113,11 @@ class EventManager
      * @param callable $listener Listener. Anything that can be callable.
      * @param int $priority Priority of the execution. The higher, the sooner in the list it will be called. Default: 0.
      * 
-     * @throws \InvalidArgumentException When $listener isn't callable.
+     * @throws InvalidArgumentException When $listener isn't callable.
      */
     public function subscribe($name, $listener, $priority = 0) {
         if (!is_callable($listener)) {
-            throw new \InvalidArgumentException('Listener has to be a callable, "'. Debugger::getType($listener) .'" given."');
+            throw new InvalidArgumentException('callable', $listener, 2);
         }
 
         if (!isset($this->_listeners[$name])) {
@@ -154,7 +173,7 @@ class EventManager
             return array();
         }
 
-        return $this->_listeners[$name];
+        return ArrayUtils::keyFilter($this->_listeners[$name], 'callable');
     }
 
 }
