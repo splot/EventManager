@@ -15,6 +15,9 @@
         "michaldudek/foundation": "dev-master"
     },
     "autoload": {
-        "psr-0": { "Splot\\EventManager": "src/" }
+        "psr-0": {
+            "Splot\\EventManager\\Tests": "tests/",
+            "Splot\\EventManager": "src/"
+        }
     }
 }
