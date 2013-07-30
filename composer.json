@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "psr/log": "dev-master",
+        "psr/log": "1.0.*",
         "michaldudek/foundation": "dev-master"
     },
     "autoload": {
