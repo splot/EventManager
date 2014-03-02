@@ -69,7 +69,7 @@ class EventManager
             $this->_listeners[$name] = array();
         }
 
-        $this->_logger->info('Triggered event "{name}" with {count} listeners.', array(
+        $this->_logger->debug('Triggered event "{name}" with {count} listeners.', array(
             'name' => $name,
             'count' => count($this->_listeners[$name])
         ));
@@ -86,7 +86,7 @@ class EventManager
 
             if ($preventDefault === false) {
                 $event->preventDefault();
-                $this->_logger->info('Default prevented of event "{name}" at listener #{i} - "{listener}".', array(
+                $this->_logger->debug('Default prevented of event "{name}" at listener #{i} - "{listener}".', array(
                     'name' => $name,
                     'i' => $i,
                     'listener' => $listenerString
@@ -94,7 +94,7 @@ class EventManager
             }
 
             if ($event->isPropagationStopped()) {
-                $this->_logger->info('Stopped propagation of event "{name}" at listener #{i} - "{listener}".', array(
+                $this->_logger->debug('Stopped propagation of event "{name}" at listener #{i} - "{listener}".', array(
                     'name' => $name,
                     'i' => $i,
                     'listener' => $listenerString
