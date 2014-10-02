@@ -3,6 +3,10 @@ Splot Event Manager
 
 Simple event manager for PHP.
 
+[![Build Status](https://travis-ci.org/splot/EventManager.svg?branch=master)](https://travis-ci.org/splot/EventManager)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e194e18-8c55-483b-a376-243943eb76b8/mini.png)](https://insight.sensiolabs.com/projects/5e194e18-8c55-483b-a376-243943eb76b8)
+[![HHVM Status](http://hhvm.h4cc.de/badge/splot/EventManager.png)](http://hhvm.h4cc.de/package/splot/EventManager)
+
 ## Features
 
 - Stop further propagation of events / stop other listeners from being called.

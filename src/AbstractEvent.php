@@ -10,8 +10,6 @@
  */
 namespace Splot\EventManager;
 
-use Splot\EventManager\EventManager;
-
 abstract class AbstractEvent
 {
 
