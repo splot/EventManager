@@ -1,7 +1,7 @@
 {
     "name": "splot/event-manager",
     "description": "Event manager.",
-    "keywords": ["event", "publisher", "subscriber", "dispatcher"],
+    "keywords": ["event", "publisher", "subscriber", "dispatcher", "pubsub"],
     "license": "MIT",
     "authors": [
         {
@@ -12,12 +12,12 @@
     "require": {
         "php": ">=5.3.3",
         "psr/log": "1.0.*",
-        "michaldudek/foundation": "dev-master"
+        "michaldudek/foundation": ">=0.9"
     },
     "autoload": {
-        "psr-0": {
-            "Splot\\EventManager\\Tests": "tests/",
-            "Splot\\EventManager": "src/"
+        "psr-4": {
+            "Splot\\EventManager\\Tests\\": "tests/",
+            "Splot\\EventManager\\": "src/"
         }
     }
 }

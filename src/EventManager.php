@@ -63,7 +63,6 @@ class EventManager
      */
     public function trigger(AbstractEvent $event) {
         $name = call_user_func(array(Debugger::getClass($event), 'getName'));
-        $event->setEventManager($this);
 
         if (!isset($this->_listeners[$name])) {
             $this->_listeners[$name] = array();
@@ -75,7 +74,8 @@ class EventManager
         ));
 
         foreach($this->_listeners[$name] as $i => $listener) {
-            $preventDefault = call_user_func_array($listener['callable'], array($event));
+            $callable = $listener['callable'];
+            $preventDefault = $callable($event);
 
             // for compatibility with older versions of MDFoundation
             try {

@@ -16,13 +16,6 @@ abstract class AbstractEvent
 {
 
     /**
-     * Event manager.
-     * 
-     * @var EventManager
-     */
-    private $_eventManager;
-
-    /**
      * Has any further propagation of this event been stopped?
      * 
      * @var bool
@@ -35,24 +28,6 @@ abstract class AbstractEvent
      * @var bool
      */
     private $_defaultPrevented = false;
-
-    /**
-     * Sets the event manager.
-     * 
-     * @param EventManager $eventManager
-     */
-    public function setEventManager(EventManager $eventManager) {
-        $this->_eventManager = $eventManager;
-    }
-
-    /**
-     * Gets the event manager.
-     * 
-     * @return EventManager
-     */
-    public function getEventManager() {
-        return $this->_eventManager;
-    }
 
     /**
      * Stops the further propagation of this event.

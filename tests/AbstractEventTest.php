@@ -15,20 +15,6 @@ class AbstractEventTest extends \PHPUnit_Framework_TestCase
         $this->eventManager = new EventManager();
     }
 
-    public function testSetGetEventManager() {
-        $event = new Event();
-        $event->setEventManager($this->eventManager);
-        $this->assertEquals($this->eventManager, $event->getEventManager());
-    }
-
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
-    public function testSetEventManagerInvalid() {
-        $event = new Event();
-        $event->setEventManager(new \stdClass());
-    }
-
     public function testStopPropagation() {
         $event = new Event();
         $this->assertFalse($event->isPropagationStopped());
