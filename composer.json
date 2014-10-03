@@ -14,6 +14,11 @@
         "psr/log": "1.0.*",
         "michaldudek/foundation": ">=0.9"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Splot\\EventManager\\Tests\\": "tests/",
